@@ -34,14 +34,14 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/internship-assignment:latest
-            
-            docker stop internship-api || true
-            docker rm internship-api || true
-            
+
+            docker rm -f internship-api || true
+
             docker run -d \
-            -p 80:9000 \
-            --restart unless-stopped \
-            ${{ secrets.DOCKER_USERNAME }}/internship-assignment:latest
+              --name internship-api \
+              --restart unless-stopped \
+              -p 80:9000 \
+              ${{ secrets.DOCKER_USERNAME }}/internship-assignment:latest
           
   
           
